@@ -8,9 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		1E3774EA2A844E7000DD5B52 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3774E92A844E7000DD5B52 /* LoginView.swift */; };
-		1E3774EC2A84512200DD5B52 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3774EB2A84512200DD5B52 /* RegistrationView.swift */; };
 		1E3774F32A84604F00DD5B52 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3774F12A84604F00DD5B52 /* User+CoreDataClass.swift */; };
 		1E3774F42A84604F00DD5B52 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3774F22A84604F00DD5B52 /* User+CoreDataProperties.swift */; };
+		1EAC01FB2A86E80F003247D5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1EAC01FA2A86E80F003247D5 /* FirebaseAuth */; };
+		1EAC01FD2A86E80F003247D5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1EAC01FC2A86E80F003247D5 /* FirebaseFirestore */; };
+		1EAC01FF2A86E80F003247D5 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1EAC01FE2A86E80F003247D5 /* FirebaseFirestoreSwift */; };
+		1EAC02012A86E80F003247D5 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1EAC02002A86E80F003247D5 /* FirebaseStorage */; };
+		1EAC02032A86EA51003247D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1EAC02022A86EA51003247D5 /* GoogleService-Info.plist */; };
 		1EF92F3D29B6CE7100C6809E /* BookwormApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF92F3C29B6CE7100C6809E /* BookwormApp.swift */; };
 		1EF92F3F29B6CE7100C6809E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF92F3E29B6CE7100C6809E /* ContentView.swift */; };
 		1EF92F4129B6CE7300C6809E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1EF92F4029B6CE7300C6809E /* Assets.xcassets */; };
@@ -46,9 +50,9 @@
 /* Begin PBXFileReference section */
 		1E3774E42A844AE700DD5B52 /* Bookworm 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Bookworm 2.xcdatamodel"; sourceTree = "<group>"; };
 		1E3774E92A844E7000DD5B52 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		1E3774EB2A84512200DD5B52 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		1E3774F12A84604F00DD5B52 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1E3774F22A84604F00DD5B52 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1EAC02022A86EA51003247D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		1EF92F3929B6CE7100C6809E /* Bookworm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bookworm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EF92F3C29B6CE7100C6809E /* BookwormApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookwormApp.swift; sourceTree = "<group>"; };
 		1EF92F3E29B6CE7100C6809E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -73,6 +77,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EAC01FB2A86E80F003247D5 /* FirebaseAuth in Frameworks */,
+				1EAC02012A86E80F003247D5 /* FirebaseStorage in Frameworks */,
+				1EAC01FD2A86E80F003247D5 /* FirebaseFirestore in Frameworks */,
+				1EAC01FF2A86E80F003247D5 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,11 +132,11 @@
 				1EF92F7229B6FADD00C6809E /* DetailView.swift */,
 				1EF92F6A29B6D14000C6809E /* DataController.swift */,
 				1E3774E92A844E7000DD5B52 /* LoginView.swift */,
-				1E3774EB2A84512200DD5B52 /* RegistrationView.swift */,
 				1E3774F12A84604F00DD5B52 /* User+CoreDataClass.swift */,
 				1E3774F22A84604F00DD5B52 /* User+CoreDataProperties.swift */,
 				1EF92F6729B6D0D900C6809E /* Bookworm.xcdatamodeld */,
 				1EF92F4029B6CE7300C6809E /* Assets.xcassets */,
+				1EAC02022A86EA51003247D5 /* GoogleService-Info.plist */,
 				1EF92F4229B6CE7300C6809E /* Bookworm.entitlements */,
 				1EF92F4329B6CE7300C6809E /* Preview Content */,
 			);
@@ -176,6 +184,12 @@
 			dependencies = (
 			);
 			name = Bookworm;
+			packageProductDependencies = (
+				1EAC01FA2A86E80F003247D5 /* FirebaseAuth */,
+				1EAC01FC2A86E80F003247D5 /* FirebaseFirestore */,
+				1EAC01FE2A86E80F003247D5 /* FirebaseFirestoreSwift */,
+				1EAC02002A86E80F003247D5 /* FirebaseStorage */,
+			);
 			productName = Bookworm;
 			productReference = 1EF92F3929B6CE7100C6809E /* Bookworm.app */;
 			productType = "com.apple.product-type.application";
@@ -248,6 +262,9 @@
 				Base,
 			);
 			mainGroup = 1EF92F3029B6CE7100C6809E;
+			packageReferences = (
+				1EAC01F92A86E80F003247D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 1EF92F3A29B6CE7100C6809E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -266,6 +283,7 @@
 			files = (
 				1EF92F4529B6CE7300C6809E /* Preview Assets.xcassets in Resources */,
 				1EF92F4129B6CE7300C6809E /* Assets.xcassets in Resources */,
+				1EAC02032A86EA51003247D5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,7 +312,6 @@
 				1EF92F7329B6FADD00C6809E /* DetailView.swift in Sources */,
 				1E3774F42A84604F00DD5B52 /* User+CoreDataProperties.swift in Sources */,
 				1EF92F6B29B6D14000C6809E /* DataController.swift in Sources */,
-				1E3774EC2A84512200DD5B52 /* RegistrationView.swift in Sources */,
 				1EF92F7129B6E4BC00C6809E /* EmojiRatingView.swift in Sources */,
 				1EF92F6929B6D0D900C6809E /* Bookworm.xcdatamodeld in Sources */,
 				1EF92F6F29B6E25800C6809E /* RatingView.swift in Sources */,
@@ -653,6 +670,40 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1EAC01F92A86E80F003247D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1EAC01FA2A86E80F003247D5 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1EAC01F92A86E80F003247D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		1EAC01FC2A86E80F003247D5 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1EAC01F92A86E80F003247D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		1EAC01FE2A86E80F003247D5 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1EAC01F92A86E80F003247D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		1EAC02002A86E80F003247D5 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1EAC01F92A86E80F003247D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		1EF92F6729B6D0D900C6809E /* Bookworm.xcdatamodeld */ = {

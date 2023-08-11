@@ -5,54 +5,99 @@
 //  Created by Vivien on 8/9/23.
 //
 
-import CoreData
 import SwiftUI
+import Firebase
 
 struct LoginView: View {
-    @Environment(\.managedObjectContext) var moc
-    @Binding var isLoggedIn: Bool
+    enum Field {
+        case email, password
+    }
 
     @State private var username: String = ""
     @State private var password: String = ""
-    @State private var errorMessage: String = ""
+    @State private var showingAlert = false
+    @State private var alertMessage = ""
+    @FocusState private var focusField: Field? 
 
     var body: some View {
-        VStack {
-            TextField("Username", text: $username)
-            SecureField("Password", text: $password)
-            Button("Login") {
-                if authenticateUser(username: username, password: password) {
-                    isLoggedIn = true
-                } else {
-                    errorMessage = "Invalid credentials."
-                }
+        NavigationStack {
+            Group {
+                TextField("Username", text: $username)
+                    .keyboardType(.emailAddress)
+                    .autocorrectionDisabled()
+                    .textInputAutocapitalization(.never)
+                    .submitLabel(.next)
+                
+                SecureField("Password", text: $password)
+                    .textInputAutocapitalization(.never)
+                    .submitLabel(.done)
             }
-            Text(errorMessage)
-                .foregroundColor(.red)
+            .textFieldStyle(.roundedBorder)
+            .overlay {
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(.gray.opacity(0.5), lineWidth: 2)
+            }
+            .padding(.horizontal)
+            
+            HStack {
+                Button {
+                    register()
+                } label: {
+                    Text("Sign Up")
+                }
+                .padding(.trailing)
+                
+                Button {
+                    login()
+                } label: {
+                    Text("Log In")
+                }
+                .padding(.leading)
+
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(.accentColor)
+            .font(.title2)
+            .padding(.top)
+            .navigationBarTitleDisplayMode(.inline)
         }
+        .alert(alertMessage, isPresented: $showingAlert, actions: {
+            Button("OK", role: .cancel) {}
+        })
         .padding()
     }
 
-    func authenticateUser(username: String, password: String) -> Bool {
-        let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "username = %@ AND password = %@", username, password)
-
-        do {
-            let results = try moc.fetch(fetchRequest)
-            if results.count > 0 {
-                return true
+    func register() {
+        Auth.auth().createUser(withEmail: username, password: password) { result, error in
+            if let error = error {
+                print("Registration Error: \(error.localizedDescription)")
+                alertMessage = "Registration Error: \(error.localizedDescription)"
+                showingAlert = true
+            } else {
+                print("You are registered!")
+                //more code load contentview
             }
-        } catch {
-            print("Error checking credentials: \(error)")
         }
-        return false
+    }
+    
+    func login() {
+        Auth.auth().signIn(withEmail: username, password: password) { result, error in
+            if let error = error {
+                print("Login Error: \(error.localizedDescription)")
+                alertMessage = "Login Error: \(error.localizedDescription)"
+                showingAlert = true
+            } else {
+                print("You are logged in!")
+                //more code load contentview
+            }
+        }
     }
 }
 
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(isLoggedIn: .constant(false))
+        LoginView()
     }
 }
 
