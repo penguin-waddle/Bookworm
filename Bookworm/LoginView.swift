@@ -17,20 +17,36 @@ struct LoginView: View {
     @State private var password: String = ""
     @State private var showingAlert = false
     @State private var alertMessage = ""
-    @FocusState private var focusField: Field? 
+    @State private var buttonsDisabled = true
+    @State private var path = NavigationPath()
+    @FocusState private var focusField: Field?
 
     var body: some View {
-        NavigationStack {
+        NavigationStack (path: $path) {
             Group {
                 TextField("Username", text: $username)
                     .keyboardType(.emailAddress)
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(.never)
                     .submitLabel(.next)
+                    .focused($focusField, equals: .email)
+                    .onSubmit {
+                        focusField = .password
+                    }
+                    .onChange(of: username) { _ in
+                        enableButtons()
+                    }
                 
                 SecureField("Password", text: $password)
                     .textInputAutocapitalization(.never)
                     .submitLabel(.done)
+                    .focused($focusField, equals: .password)
+                    .onSubmit {
+                        focusField = nil //dismiss keyboard
+                    }
+                    .onChange(of: password) { _ in
+                        enableButtons()
+                    }
             }
             .textFieldStyle(.roundedBorder)
             .overlay {
@@ -55,16 +71,35 @@ struct LoginView: View {
                 .padding(.leading)
 
             }
+            .disabled(buttonsDisabled)
             .buttonStyle(.borderedProminent)
             .tint(.accentColor)
             .font(.title2)
             .padding(.top)
             .navigationBarTitleDisplayMode(.inline)
+            .navigationDestination(for: String.self) { view in
+                if view == "ContentView" {
+                    ContentView()
+                }
+            }
         }
         .alert(alertMessage, isPresented: $showingAlert, actions: {
             Button("OK", role: .cancel) {}
         })
+        .onAppear {
+            //skip log in screen if there is a current user
+            if Auth.auth().currentUser != nil {
+                print("You are logged in!")
+                path.append("ContentView")
+            }
+        }
         .padding()
+    }
+    
+    func enableButtons() {
+        let emailIsGood = username.count >= 6 && username.contains("@")
+        let passwordIsGood = password.count >= 6
+        buttonsDisabled = !(emailIsGood && passwordIsGood)
     }
 
     func register() {
@@ -75,7 +110,7 @@ struct LoginView: View {
                 showingAlert = true
             } else {
                 print("You are registered!")
-                //more code load contentview
+                path.append("ContentView")
             }
         }
     }
@@ -88,7 +123,7 @@ struct LoginView: View {
                 showingAlert = true
             } else {
                 print("You are logged in!")
-                //more code load contentview
+                path.append("ContentView")
             }
         }
     }

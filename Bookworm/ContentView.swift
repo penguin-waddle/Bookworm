@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.dismiss) private var dismiss
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.title),
         SortDescriptor(\.author)
@@ -40,11 +42,25 @@ struct ContentView: View {
                 }
                 .onDelete(perform: deleteBooks)
             }
+            .navigationBarBackButtonHidden()
                 .navigationTitle("Bookworm")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
+                        Button("Sign Out"){
+                            do {
+                                try Auth.auth().signOut()
+                                print("Log Out Successful!")
+                                dismiss()
+                            } catch {
+                                print("Error: Could not sign out.")
+                            }
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .navigationBarTrailing) {
                         EditButton()
                     }
+                    
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
