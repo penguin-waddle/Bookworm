@@ -18,11 +18,11 @@ struct LoginView: View {
     @State private var showingAlert = false
     @State private var alertMessage = ""
     @State private var buttonsDisabled = true
-    @State private var path = NavigationPath()
+    @State private var presentSheet = false
     @FocusState private var focusField: Field?
 
     var body: some View {
-        NavigationStack (path: $path) {
+       VStack {
             Group {
                 TextField("Username", text: $username)
                     .keyboardType(.emailAddress)
@@ -76,12 +76,7 @@ struct LoginView: View {
             .tint(.accentColor)
             .font(.title2)
             .padding(.top)
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationDestination(for: String.self) { view in
-                if view == "ContentView" {
-                    ContentView()
-                }
-            }
+
         }
         .alert(alertMessage, isPresented: $showingAlert, actions: {
             Button("OK", role: .cancel) {}
@@ -90,8 +85,11 @@ struct LoginView: View {
             //skip log in screen if there is a current user
             if Auth.auth().currentUser != nil {
                 print("You are logged in!")
-                path.append("ContentView")
+                presentSheet = true
             }
+        }
+        .fullScreenCover(isPresented: $presentSheet) {
+            ListView()
         }
         .padding()
     }
@@ -110,7 +108,7 @@ struct LoginView: View {
                 showingAlert = true
             } else {
                 print("You are registered!")
-                path.append("ContentView")
+                presentSheet = true
             }
         }
     }
@@ -123,7 +121,7 @@ struct LoginView: View {
                 showingAlert = true
             } else {
                 print("You are logged in!")
-                path.append("ContentView")
+                presentSheet = true
             }
         }
     }

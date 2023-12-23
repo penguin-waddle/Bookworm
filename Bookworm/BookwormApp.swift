@@ -19,14 +19,15 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct BookwormApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @StateObject private var dataController = DataController()
+    let persistenceController = PersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
-                ContentView()
-                    .environment(\.managedObjectContext, dataController.container.viewContext)
+            ContentView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
+
+
 

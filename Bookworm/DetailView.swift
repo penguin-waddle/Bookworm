@@ -20,7 +20,7 @@ struct DetailView: View {
                 Image(book.genre ?? "Fantasy")
                     .resizable()
                     .scaledToFit()
-                
+
                 Text(book.genre?.uppercased() ?? "FANTASY")
                     .font(.caption)
                     .fontWeight(.black)

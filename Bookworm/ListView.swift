@@ -6,34 +6,29 @@
 //
 
 import SwiftUI
-import Firebase
+import CoreData
 
 struct ListView: View {
+    @FetchRequest(entity: Book.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Book.title, ascending: true)])
+    private var books: FetchedResults<Book> // Make sure Book is NSManagedObject
+
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) private var dismiss
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.title),
-        SortDescriptor(\.author)
-    ]) var books: FetchedResults<Book>
-    
+
     @State private var showingAddScreen = false
-    
+
     var body: some View {
         NavigationView {
             List {
-                ForEach(books) { book in
-                    NavigationLink {
-                        DetailView(book: book)
-                    } label: {
+                ForEach(books, id: \.objectID) { book in // Use objectID for identification
+                    NavigationLink(destination: DetailView(book: book)) { // Directly pass the book object
                         HStack {
-                            EmojiRatingView(rating: book.rating)
+                            EmojiRatingView(rating: book.rating) // Pass rating as a value
                                 .font(.largeTitle)
-                            
                             VStack(alignment: .leading) {
                                 Text(book.title ?? "Unknown Title")
                                     .font(.headline)
                                     .foregroundColor(book.rating == 1 ? .red : .blue)
-                                
                                 Text(book.author ?? "Unknown Author")
                                     .foregroundColor(.secondary)
                             }
@@ -42,52 +37,26 @@ struct ListView: View {
                 }
                 .onDelete(perform: deleteBooks)
             }
-            .navigationBarBackButtonHidden()
-                .navigationTitle("Bookworm")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button("Sign Out"){
-                            do {
-                                try Auth.auth().signOut()
-                                print("Log Out Successful!")
-                                dismiss()
-                            } catch {
-                                print("Error: Could not sign out.")
-                            }
-                        }
-                    }
-                    
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        EditButton()
-                    }
-                    
-                    
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            showingAddScreen.toggle()
-                        } label: {
-                            Label("Add Book", systemImage: "plus")
-                        }
+            .navigationTitle("Books")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: { showingAddScreen.toggle() }) {
+                        Label("Add Book", systemImage: "plus")
                     }
                 }
-                .sheet(isPresented: $showingAddScreen) {
-                    AddBookView()
-                }
+            }
+            .sheet(isPresented: $showingAddScreen) {
+                AddBookView()
+            }
         }
     }
-    
+
     func deleteBooks(at offsets: IndexSet) {
         for offset in offsets {
             let book = books[offset]
             moc.delete(book)
         }
-        
-        //try? moc.save()
+        try? moc.save()
     }
 }
 
-struct ListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ListView()
-    }
-}
