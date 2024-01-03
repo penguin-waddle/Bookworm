@@ -1,7 +1,16 @@
 # Bookworm: A Personal Book Library App
 
 ## Overview
-Bookworm is a detailed book tracking app designed to manage a personal library on iOS devices. Utilizing Core Data for data persistence, users can add, review, and rate books they've read. The app's focus on simplicity and efficiency makes it an ideal tool for avid readers.
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/penguin-waddle/Bookworm/assets/123434744/47c98b25-c1a2-41e0-847f-7c1c7f6fcf55" alt="Bookworm App Demo" width="300" />
+    </td>
+    <td>
+      Bookworm is a detailed book tracking app designed to manage a personal library on iOS devices. Utilizing Core Data for data persistence, users can add, review, and rate books they've read. The app's focus on simplicity and efficiency makes it an ideal tool for avid readers.
+    </td>
+  </tr>
+</table>
 
 ## Key Features
 - **Add New Books**: Users can add books with details like title, author, genre, and personal review.
@@ -34,3 +43,5 @@ Developing Bookworm was instrumental in understanding complex SwiftUI concepts, 
 *Note: Bookworm is a project from the "100 Days of SwiftUI" course, emphasizing practical application of SwiftUI and Core Data.*
 
 ---
+
+[Back to Main Repository](https://github.com/penguin-waddle/100-Days-of-SwiftUI)
